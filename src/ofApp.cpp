@@ -5,9 +5,9 @@ using namespace std;
 //----------------------------------------------------------------------------------------------------
 void ofApp::setup(){
 
-	red.set(0, 0, 0);           
-	blue.set(0, 0, 0);
-	green.set(0, 0, 0);
+	red.set(0, 0, 0, 100, 100);           
+	blue.set(0, 0, 0, 500, 250);
+	green.set(0, 0, 0, 600, 150);
 
     startTime = ofGetElapsedTimeMillis();
 }
@@ -30,23 +30,22 @@ void ofApp::draw(){
 
     ofBackgroundGradient((0,0,0),(10,10,10),OF_GRADIENT_LINEAR);
 
-    //para1 += 1;
-    //para2 += 1;
-    //para3 += 1;
 
     cout << red.hunger << " " << green.hunger << " " << blue.hunger << endl;
+    cout << red.chaos << " " << green.chaos << " " << blue.chaos << endl;
+    cout << red.infection << " " << green.infection << " " << blue.infection << endl;
     
-    particle newRedParticle(100 + ofRandom(para1), 100 + ofRandom(para1), 0);
+    particle newRedParticle(red.initX + ofRandom(para1), red.initY + ofRandom(para1), 0);
     redParticles.push_back(newRedParticle);
 
-    particle newGreenParticle(500 + ofRandom(para2), 250 + ofRandom(para2), 0);
+    particle newGreenParticle(green.initX + ofRandom(para2), green.initY + ofRandom(para2), 0);
     greenParticles.push_back(newGreenParticle);
 
-    particle newBlueParticle(600 + ofRandom(para3), 150 + ofRandom(para3), 0);
+    particle newBlueParticle(blue.initX + ofRandom(para3), blue.initY + ofRandom(para3), 0);
     blueParticles.push_back(newBlueParticle);
 
     currTime = ofGetElapsedTimeMillis() - startTime;   // Noting down current time as value returned by function minus startTime
-    if (currTime >= 3000) {                            // If 1.5 seconds have passed
+    if (currTime >= 5000) {                            // If 1.5 seconds have passed
         red.tickAnimal();                              // Run the tickAnimal() function from the Animal class
         green.tickAnimal();
         blue.tickAnimal();
@@ -63,15 +62,54 @@ void ofApp::draw(){
     infection(green.infection, 0, 150, 0);
     infection(blue.infection, 0, 0, 150);
 
-	
+    red.statusAnimal();
+    green.statusAnimal();
+    blue.statusAnimal();
+
+    displayText();
 
 }
 
 //--------------------------------------------------------------
 
+
 void ofApp::keyPressed(int key){
 
-	
+    switch (key) {
+    case 'q':
+        red.offerBlood();
+        break;
+    case 'w':
+        red.sacrificeAnimal();
+        break;
+    case 'e':
+        red.usePotion();
+        break;
+    case 'a':
+        green.offerBlood();
+        break;
+    case 's':
+        green.sacrificeAnimal();
+        break;
+    case 'd':
+        green.usePotion();
+        break;
+    case 'z':
+        blue.offerBlood();
+        break;
+    case 'x':
+        blue.sacrificeAnimal();
+        break;
+    case 'c':
+        blue.usePotion();
+        break;
+    case 'p':
+        startGame = false;
+        break;
+    case 'l':
+        ofToggleFullscreen();
+        break;
+    }
 
 }
 
@@ -124,14 +162,58 @@ void ofApp::gotMessage(ofMessage msg){
 
 void ofApp::infection(int i, int r, int g, int b)
 {
-
+    ofNoFill();
+    ofBeginShape();
     for (int j = 0; j < i/2; j++) {
+        
         ofSetLineWidth(i * 0.1);
         ofSetColor(r, g, b);
-        ofDrawLine(ofRandom(1000), ofRandom(1000), ofRandom(1000) + 300, ofRandom(1000) + 300);
+        //ofDrawLine(ofRandom(1000), ofRandom(1000), ofRandom(1000) + 300, ofRandom(1000) + 300);
+        ofVertex(ofRandom(1000), ofRandom(1000));
+        
+    }
+    ofEndShape();
+    ofFill();
+
+}
+
+void ofApp::displayText()
+{
+
+    if (red.h) {
+        red.initX++;
+        red.initY++;
+    }
+    if (red.c) {
+
+    }
+    if (red.i) {
+
+    }
+
+    if (green.h) {
+
+    }
+    if (green.c) {
+
+    }
+    if (green.i) {
+
+    }
+
+    if (blue.h) {
+
+    }
+    if (blue.c) {
+
+    }
+    if (blue.i) {
+
     }
 
 }
+
+
 
 
 //--------------------------------------------------------------

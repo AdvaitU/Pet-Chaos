@@ -11,16 +11,18 @@ Animal::~Animal()
 	
 }
 
-void Animal::set(float i1, float i2, float i3)
+void Animal::set(float i1, float i2, float i3, int x, int y)
 {
 
 	hunger = i1;
 	chaos = i2;
 	infection = i3;
+	initX = x;
+	initY = y;
 
 }
 
-void Animal::feedAnimal()
+void Animal::offerBlood()
 {
 
 	hunger -= ofRandom(0.5, 1.5);
@@ -28,14 +30,14 @@ void Animal::feedAnimal()
 
 }
 
-void Animal::petAnimal()
+void Animal::usePotion()
 {
 
 	chaos -= ofRandom(0.5, 1.5);
 
 }
 
-void Animal::quenchAnimal()
+void Animal::sacrificeAnimal()
 {
 	infection -= ofRandom(0.5, 1.5);
 	chaos -= ofRandom(0.1, 0.5);
@@ -52,14 +54,41 @@ void Animal::tickAnimal()
 	clipValues();  // Clip values between relevant range
 }
 
+void Animal::statusAnimal()
+{
+
+	if (hunger >= 10) {
+		h = true;
+	}
+	else h = false;
+
+	if (hunger <= -1) {
+		hunger = 10;
+	}
+
+	if (chaos >= 10) {
+		c = true;
+	}
+	else c = false;
+
+	if (chaos <= -1) {
+		chaos = 10;
+	}
+
+	if (infection >= 25) {
+		i = true;
+	}
+	else i = false;
+}
+
 void Animal::clipValues()
 {
 
 	if (hunger >= 15.0) {
 		hunger = 15.0;
 	}
-	if (hunger < 0.0) {
-		hunger = 0.0;
+	if (hunger < -5.0) {
+		hunger = -5.0;
 	}
 
 	if (infection >= 50) {
@@ -72,8 +101,8 @@ void Animal::clipValues()
 	if (chaos >= 15.0) {
 		chaos = 15.0;
 	}
-	if (chaos <= 0.0) {
-		chaos = 0.0;
+	if (chaos <= -5.0) {
+		chaos = -5.0;
 	}
 
 }

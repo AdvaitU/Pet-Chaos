@@ -45,7 +45,9 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 
 		void infection(int i, int r, int g, int b);
+		void displayText();
 
+		bool startGame = true;
 
 		Animal red;      // Instantiating three objects from the Animal class
 		Animal blue;
