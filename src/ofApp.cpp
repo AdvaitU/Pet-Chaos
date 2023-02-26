@@ -6,8 +6,8 @@ using namespace std;
 void ofApp::setup(){
 
 	red.set(0, 0, 0);           
-	blue.set(0, 0, 80);
-	green.set(0, 0, 80);
+	blue.set(0, 0, 0);
+	green.set(0, 0, 0);
 
     startTime = ofGetElapsedTimeMillis();
 }
@@ -17,9 +17,9 @@ void ofApp::setup(){
 void ofApp::update(){
 	
     for (int i = 0; i < redParticles.size(); i++) {
-        redParticles[i].update(red.hunger);
-        greenParticles[i].update(green.hunger);
-        blueParticles[i].update(blue.hunger);
+        redParticles[i].update(red.hunger, red.chaos);
+        greenParticles[i].update(green.hunger, blue.chaos);
+        blueParticles[i].update(blue.hunger, green.chaos);
     }
 
 }
@@ -28,13 +28,13 @@ void ofApp::update(){
 
 void ofApp::draw(){
 
-    ofBackgroundGradient((red.infection, green.infection, blue.infection), (0, 0, 0), OF_GRADIENT_CIRCULAR);
+    ofBackgroundGradient((0,0,0),(10,10,10),OF_GRADIENT_LINEAR);
 
-    
-    
     //para1 += 1;
     //para2 += 1;
     //para3 += 1;
+
+    cout << red.hunger << " " << green.hunger << " " << blue.hunger << endl;
     
     particle newRedParticle(100 + ofRandom(para1), 100 + ofRandom(para1), 0);
     redParticles.push_back(newRedParticle);
@@ -46,8 +46,10 @@ void ofApp::draw(){
     blueParticles.push_back(newBlueParticle);
 
     currTime = ofGetElapsedTimeMillis() - startTime;   // Noting down current time as value returned by function minus startTime
-    if (currTime >= 5000) {                            // If 1.5 seconds have passed
+    if (currTime >= 3000) {                            // If 1.5 seconds have passed
         red.tickAnimal();                              // Run the tickAnimal() function from the Animal class
+        green.tickAnimal();
+        blue.tickAnimal();
         startTime = ofGetElapsedTimeMillis();          // Reset startTime
     }
 
@@ -56,6 +58,10 @@ void ofApp::draw(){
         greenParticles[i].draw(0, 255, 0);
         blueParticles[i].draw(0, 0, 255);
     }
+
+    infection(red.infection, 150, 0, 0);
+    infection(green.infection, 0, 150, 0);
+    infection(blue.infection, 0, 0, 150);
 
 	
 
@@ -116,6 +122,17 @@ void ofApp::gotMessage(ofMessage msg){
 
 }
 
+void ofApp::infection(int i, int r, int g, int b)
+{
+
+    for (int j = 0; j < i/2; j++) {
+        ofSetLineWidth(i * 0.1);
+        ofSetColor(r, g, b);
+        ofDrawLine(ofRandom(1000), ofRandom(1000), ofRandom(1000) + 300, ofRandom(1000) + 300);
+    }
+
+}
+
 
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
@@ -140,12 +157,12 @@ particle::~particle() {
 //--------------------------------------------------------------
 
 
-void particle::update(float input) {
+void particle::update(float input1, float input2) {
     // update the particle x,y position by incrementing each by the velocity vx and vy
-    position += direction;
+    position += direction * input1;
     direction += force;
     if (size > 1) {
-        size -= 0.07;
+        size -= input2 * 0.1;
     }
     float brightness = color.getBrightness();
     float myHue = color.getHue();
@@ -161,5 +178,5 @@ void particle::update(float input) {
 
 void particle::draw(int r, int g, int b) {
     ofSetColor(r, g, b, 120);
-    ofDrawCircle(position, size);
+    ofDrawEllipse(position, size, size + ofRandom(10));
 }

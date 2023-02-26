@@ -46,7 +46,7 @@ void Animal::tickAnimal()
 {
 
 	hunger += ofRandom(0.4, 1.0);
-	infection += ofRandom(0.4, 1.0);
+	infection += ofRandom(1, 5);
 	chaos += ofRandom(0.0, 1.0);
 
 	clipValues();  // Clip values between relevant range
@@ -62,8 +62,8 @@ void Animal::clipValues()
 		hunger = 0.0;
 	}
 
-	if (infection >= 255) {
-		infection = 255;
+	if (infection >= 50) {
+		infection = 50;
 	}
 	if (infection <= 0) {
 		infection = 0;

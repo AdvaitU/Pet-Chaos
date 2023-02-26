@@ -15,7 +15,7 @@ public:
 
 
 	// we also define two methods that the particle object understands
-	void update(float input);
+	void update(float input1, float input2);
 	void draw(int r, int g, int b);
 
 	// and define a particle contructor and a destructor (the destructor is denoted by the tilde (~) character prefix
@@ -43,6 +43,8 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+
+		void infection(int i, int r, int g, int b);
 
 
 		Animal red;      // Instantiating three objects from the Animal class
