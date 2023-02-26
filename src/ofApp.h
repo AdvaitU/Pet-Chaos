@@ -15,8 +15,8 @@ public:
 
 
 	// we also define two methods that the particle object understands
-	void update();
-	void draw();
+	void update(float input);
+	void draw(int r, int g, int b);
 
 	// and define a particle contructor and a destructor (the destructor is denoted by the tilde (~) character prefix
 	// the contructor is expecting to be passed an initial x and y co-ordinate for the new particle
@@ -44,17 +44,22 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
-		void makeParticle(int i1, int i2);
 
 		Animal red;      // Instantiating three objects from the Animal class
 		Animal blue;
 		Animal green;
 
-		vector <particle> particles;
-		int hue;
+		vector <particle> redParticles;
+		vector <particle> greenParticles;
+		vector <particle> blueParticles;
+		int hue = 43;
 
-		int para1 = 20;
-		int para2 = 200;
+		float para1 = 20;
+		float para2 = 50;
+		float para3 = 80;
+
+		int startTime;
+		int currTime;
 
 
 

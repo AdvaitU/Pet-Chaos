@@ -45,8 +45,8 @@ void Animal::quenchAnimal()
 void Animal::tickAnimal()
 {
 
-	hunger += ofRandom(0.4, 0.1);
-	infection += ofRandom(0.4, 0.1);
+	hunger += ofRandom(0.4, 1.0);
+	infection += ofRandom(0.4, 1.0);
 	chaos += ofRandom(0.0, 1.0);
 
 	clipValues();  // Clip values between relevant range
@@ -55,8 +55,8 @@ void Animal::tickAnimal()
 void Animal::clipValues()
 {
 
-	if (hunger >= 10.0) {
-		hunger = 10.0;
+	if (hunger >= 15.0) {
+		hunger = 15.0;
 	}
 	if (hunger < 0.0) {
 		hunger = 0.0;
@@ -69,8 +69,8 @@ void Animal::clipValues()
 		infection = 0;
 	}
 
-	if (chaos >= 10.0) {
-		chaos = 10.0;
+	if (chaos >= 15.0) {
+		chaos = 15.0;
 	}
 	if (chaos <= 0.0) {
 		chaos = 0.0;
