@@ -24,21 +24,21 @@ void Animal::feedAnimal()
 {
 
 	hunger -= ofRandom(0.5, 1.5);
-	chaos += ofRandom(0.1, 0.5);
+	chaos -= ofRandom(0.1, 0.5);
 
 }
 
 void Animal::petAnimal()
 {
 
-	chaos += ofRandom(0.5, 1.5);
+	chaos -= ofRandom(0.5, 1.5);
 
 }
 
 void Animal::quenchAnimal()
 {
 	infection -= ofRandom(0.5, 1.5);
-	chaos += ofRandom(0.1, 0.5);
+	chaos -= ofRandom(0.1, 0.5);
 
 }
 
@@ -47,7 +47,7 @@ void Animal::tickAnimal()
 
 	hunger += ofRandom(0.4, 0.1);
 	infection += ofRandom(0.4, 0.1);
-	chaos -= ofRandom(0.0, 1.0);
+	chaos += ofRandom(0.0, 1.0);
 
 	clipValues();  // Clip values between relevant range
 }

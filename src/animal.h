@@ -10,7 +10,7 @@ public:
 
 	float hunger;        
 	float chaos;
-	int infection;
+	int infection;        // Affects how much the colour spreads into the background
 
 	Animal();            // Empty constructor and destructor
 	~Animal();
