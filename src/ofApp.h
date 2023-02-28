@@ -45,7 +45,7 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 
 		void infection(int i, int r, int g, int b);
-		void displayText();
+		void movePet();
 
 		bool startGame = true;
 
@@ -58,13 +58,8 @@ class ofApp : public ofBaseApp{
 		vector <particle> blueParticles;
 		int hue = 43;
 
-		float para1 = 20;
-		float para2 = 50;
-		float para3 = 80;
-
 		int startTime;
 		int currTime;
-
 
 
 };

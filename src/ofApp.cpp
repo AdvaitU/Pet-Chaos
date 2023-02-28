@@ -5,9 +5,13 @@ using namespace std;
 //----------------------------------------------------------------------------------------------------
 void ofApp::setup(){
 
-	red.set(0, 0, 0, 100, 100);           
-	blue.set(0, 0, 0, 500, 250);
-	green.set(0, 0, 0, 600, 150);
+	red.set(0, 0, 0, 100, 200);           
+	green.set(0, 0, 0, 800, 150);
+    blue.set(0, 0, 0, 500, 450);
+
+    red.loadImage();
+    green.loadImage();
+    blue.loadImage();
 
     startTime = ofGetElapsedTimeMillis();
 }
@@ -30,18 +34,21 @@ void ofApp::draw(){
 
     ofBackgroundGradient((0,0,0),(10,10,10),OF_GRADIENT_LINEAR);
 
+    //para1 += 0.2;
+    //para2 += 0.2;
+    //para3 += 0.2;
 
-    cout << red.hunger << " " << green.hunger << " " << blue.hunger << endl;
-    cout << red.chaos << " " << green.chaos << " " << blue.chaos << endl;
+    //cout << red.hunger << " " << green.hunger << " " << blue.hunger << endl;
+    //cout << red.chaos << " " << green.chaos << " " << blue.chaos << endl;
     cout << red.infection << " " << green.infection << " " << blue.infection << endl;
     
-    particle newRedParticle(red.initX + ofRandom(para1), red.initY + ofRandom(para1), 0);
+    particle newRedParticle(red.initX + ofRandom(50), red.initY + ofRandom(50), 0);
     redParticles.push_back(newRedParticle);
 
-    particle newGreenParticle(green.initX + ofRandom(para2), green.initY + ofRandom(para2), 0);
+    particle newGreenParticle(green.initX + ofRandom(50), green.initY + ofRandom(50), 0);
     greenParticles.push_back(newGreenParticle);
 
-    particle newBlueParticle(blue.initX + ofRandom(para3), blue.initY + ofRandom(para3), 0);
+    particle newBlueParticle(blue.initX + ofRandom(50), blue.initY + ofRandom(50), 0);
     blueParticles.push_back(newBlueParticle);
 
     currTime = ofGetElapsedTimeMillis() - startTime;   // Noting down current time as value returned by function minus startTime
@@ -58,15 +65,10 @@ void ofApp::draw(){
         blueParticles[i].draw(0, 0, 255);
     }
 
-    infection(red.infection, 150, 0, 0);
-    infection(green.infection, 0, 150, 0);
-    infection(blue.infection, 0, 0, 150);
-
     red.statusAnimal();
     green.statusAnimal();
     blue.statusAnimal();
-
-    displayText();
+    movePet();
 
 }
 
@@ -177,38 +179,57 @@ void ofApp::infection(int i, int r, int g, int b)
 
 }
 
-void ofApp::displayText()
+void ofApp::movePet()
 {
 
-    if (red.h) {
-        red.initX++;
-        red.initY++;
-    }
-    if (red.c) {
 
-    }
     if (red.i) {
-
+        red.initX += ofRandom(1, 8);
+        red.initY += ofRandom(-1, 8);
+        red.sad.draw(red.initX, red.initY);
+        if (ofRandom(100) > 96) {
+            red.initX = 100;
+            red.initY = 200;
+        }
+    }
+    else if (red.infection > 5 && red.infection < 11) {
+        red.happy.draw(red.initX, red.initY);
+    }
+    else {
+        red.neutral.draw(red.initX, red.initY);
     }
 
-    if (green.h) {
-
-    }
-    if (green.c) {
-
-    }
     if (green.i) {
-
+        green.initX += ofRandom(-8, +1);
+        green.initY += ofRandom(-1, +8);
+        green.sad.draw(green.initX, green.initY);
+        if (ofRandom(100) > 96) {
+            green.initX = 800;
+            green.initY = 150;
+        }
+    }
+    else if (green.infection > 5 && green.infection < 11) {
+        green.happy.draw(green.initX, green.initY);
+    }
+    else {
+        green.neutral.draw(green.initX, green.initY);
     }
 
-    if (blue.h) {
-
-    }
-    if (blue.c) {
-
-    }
     if (blue.i) {
+        blue.initX += ofRandom(-8, 8);
+        blue.initY += ofRandom(-8, +1);
+        blue.sad.draw(blue.initX, blue.initY);
+        if (ofRandom(100) > 96) {
+            blue.initX = 500;
+            blue.initY = 450;
+        }
 
+    }
+    else if (blue.infection > 5 && blue.infection < 11) {
+        blue.happy.draw(blue.initX, blue.initY);
+    }
+    else {
+        blue.neutral.draw(blue.initX, blue.initY);
     }
 
 }

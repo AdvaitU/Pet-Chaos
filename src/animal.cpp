@@ -22,6 +22,15 @@ void Animal::set(float i1, float i2, float i3, int x, int y)
 
 }
 
+void Animal::loadImage(string h, string n, string s)
+{
+
+	happy.load(h);
+	neutral.load(n);
+	sad.load(s);
+
+}
+
 void Animal::offerBlood()
 {
 
@@ -33,7 +42,7 @@ void Animal::offerBlood()
 void Animal::usePotion()
 {
 
-	chaos -= ofRandom(0.5, 1.5);
+	chaos -= ofRandom(3.0, 7.0);
 
 }
 
@@ -47,7 +56,7 @@ void Animal::sacrificeAnimal()
 void Animal::tickAnimal()
 {
 
-	hunger += ofRandom(0.4, 1.0);
+	hunger += ofRandom(1.0, 1.3);
 	infection += ofRandom(1, 5);
 	chaos += ofRandom(0.0, 1.0);
 
@@ -75,7 +84,7 @@ void Animal::statusAnimal()
 		chaos = 10;
 	}
 
-	if (infection >= 25) {
+	if (infection >= 10) {
 		i = true;
 	}
 	else i = false;

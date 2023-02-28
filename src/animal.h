@@ -19,10 +19,15 @@ public:
 	int initX;
 	int initY;
 
+	ofImage happy;
+	ofImage neutral;
+	ofImage sad;
+
 	Animal();            // Empty constructor and destructor
 	~Animal();
 
 	void set(float i1 = 5.0, float i2 = 5.0, float i3 = 5.0, int x = 100, int y = 100);  // For setting values of hunger, thirst, and happiness - in that order - as floats
+	void loadImage(string h, string n, string s);
 	
 	void offerBlood();      // Reduces hunger level, increase happiness
 	void usePotion();       // Increases happiness
