@@ -1,33 +1,41 @@
 #pragma once
 
 #include "animal.h"
-//#include "animal.cpp"
 using namespace std;
 
+/* -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Particle Class by Dan Buzzo - modified for use 
+ YouTube video for usage: https://www.youtube.com/watch?v=XghI0B4EhQI 
+ GitHub repo for original code: https://github.com/danbz/art-and-code
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 class particle {
 public:
-	// our new particle class
-	// with each object containing an x and y position, and a vector direction as vx and vy and a size
-	ofColor color;
-	float size;
-	glm::vec2 force, position, direction;
 
+	ofColor color;   // Holds the colour of the particles
+	float size;      // Holds the size of each particle
+	glm::vec2 force, position, direction;  // Holds x,y co-ordinates
 
-	// we also define two methods that the particle object understands
-	void update(float input1, float input2);
-	void draw(int r, int g, int b);
+	void update(float input1, float input2);    // Used in ofApp::update()
+	void draw(int r, int g, int b);             // Used in ofApp::draw()
 
-	// and define a particle contructor and a destructor (the destructor is denoted by the tilde (~) character prefix
-	// the contructor is expecting to be passed an initial x and y co-ordinate for the new particle
-	particle(int x, int y, int hue);
-	~particle();
+	particle(int x, int y, int hue);            // Constructor initialised with x and y co-ordinates and colour
+	~particle();                                // Empty destructor
+
 };
 
+/* ofApp Class -------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 class ofApp : public ofBaseApp{
 
 	public:
+
+		// IN-BUILT MEMBERS -----------------------------------------------------------------------------------------------------------------------------------------------
+
 		void setup();
 		void update();
 		void draw();
@@ -44,22 +52,33 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
-		void infection(int i, int r, int g, int b);
-		void movePet();
+		// CUSTOM MEMBERS -------------------------------------------------------------------------------------------------------------------------------------------------
 
-		bool startGame = true;
+		bool startGame = true;      // Bool to hold whether game has started
 
-		Animal red;      // Instantiating three objects from the Animal class
+		// ANIMAL CLASS OBJECTS -----------------------------------------------------------------------------
+
+		Animal red;      
 		Animal blue;
 		Animal green;
+
+		// VECTORS CONTAINING PARTICLES ----------------------------------------------------------------------
 
 		vector <particle> redParticles;
 		vector <particle> greenParticles;
 		vector <particle> blueParticles;
-		int hue = 43;
+
+		// TIMER VARIABLES ----------------------------------------------------------------------------------
 
 		int startTime;
 		int currTime;
+		
+		// BACKGROUND IMAGE ---------------------------------------------------------------------------------
 
+		ofImage bg;
+
+		// MOVE PET FUNCTION --------------------------------------------------------------------------------
+
+		void movePet();   // Moves the pet around if infection > 15 AND sets correct image for all stages
 
 };

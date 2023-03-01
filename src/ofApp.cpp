@@ -1,26 +1,28 @@
 #include "ofApp.h"
-#include <iostream>
+#include <iostream>   // Only for debugging
 using namespace std;
 
 //----------------------------------------------------------------------------------------------------
 void ofApp::setup(){
 
-	red.set(0, 0, 0, 100, 200);           
+	red.set(0, 0, 0, 100, 200);       // Setting up initial values of all Animal class objects    
 	green.set(0, 0, 0, 800, 150);
     blue.set(0, 0, 0, 500, 450);
 
-    red.loadImage();
-    green.loadImage();
-    blue.loadImage();
+    red.loadImage("c1h-01.png", "c1n-01.png", "c1s-01.png");    // Loading up images for all Animal class objects
+    green.loadImage("c2h-01.png", "c2n-01.png", "c2s-01.png");
+    blue.loadImage("c3h-01.png", "c3n-01.png", "c3s-01.png");
 
-    startTime = ofGetElapsedTimeMillis();
+    bg.load("bg2-01.png");         // Loading background image
+
+    startTime = ofGetElapsedTimeMillis();   // Saving time at the start of the programme
 }
 
 //-----------------------------------------------------------------------------------------------------
 
 void ofApp::update(){
 	
-    for (int i = 0; i < redParticles.size(); i++) {
+    for (int i = 0; i < redParticles.size(); i++) {             // Run the update() function from the Particle class for all Particle objects
         redParticles[i].update(red.hunger, red.chaos);
         greenParticles[i].update(green.hunger, blue.chaos);
         blueParticles[i].update(blue.hunger, green.chaos);
@@ -32,17 +34,13 @@ void ofApp::update(){
 
 void ofApp::draw(){
 
-    ofBackgroundGradient((0,0,0),(10,10,10),OF_GRADIENT_LINEAR);
+    ofBackgroundGradient((0,0,0),(10,10,10),OF_GRADIENT_LINEAR);   // Background gradient - Replace with Image
 
-    //para1 += 0.2;
-    //para2 += 0.2;
-    //para3 += 0.2;
-
-    //cout << red.hunger << " " << green.hunger << " " << blue.hunger << endl;
+    //cout << red.hunger << " " << green.hunger << " " << blue.hunger << endl;     // Debugging
     //cout << red.chaos << " " << green.chaos << " " << blue.chaos << endl;
-    cout << red.infection << " " << green.infection << " " << blue.infection << endl;
+    //cout << red.infection << " " << green.infection << " " << blue.infection << endl;
     
-    particle newRedParticle(red.initX + ofRandom(50), red.initY + ofRandom(50), 0);
+    particle newRedParticle(red.initX + ofRandom(50), red.initY + ofRandom(50), 0);    // Create new particles for all three instances and push them into the respective vectors
     redParticles.push_back(newRedParticle);
 
     particle newGreenParticle(green.initX + ofRandom(50), green.initY + ofRandom(50), 0);
@@ -52,23 +50,24 @@ void ofApp::draw(){
     blueParticles.push_back(newBlueParticle);
 
     currTime = ofGetElapsedTimeMillis() - startTime;   // Noting down current time as value returned by function minus startTime
-    if (currTime >= 5000) {                            // If 1.5 seconds have passed
+    if (currTime >= 5000) {                            // If 5 seconds have passed
         red.tickAnimal();                              // Run the tickAnimal() function from the Animal class
         green.tickAnimal();
         blue.tickAnimal();
         startTime = ofGetElapsedTimeMillis();          // Reset startTime
     }
 
-    for (int i = 0; i < redParticles.size(); i++) {
+    for (int i = 0; i < redParticles.size(); i++) {     // Run draw() function from Particle class for all instances
         redParticles[i].draw(255, 0, 0);
         greenParticles[i].draw(0, 255, 0);
         blueParticles[i].draw(0, 0, 255);
     }
 
-    red.statusAnimal();
+    red.statusAnimal();        // Update status booleans
     green.statusAnimal();
     blue.statusAnimal();
-    movePet();
+
+    movePet();                 // Check for movement and the right image
 
 }
 
@@ -162,63 +161,49 @@ void ofApp::gotMessage(ofMessage msg){
 
 }
 
-void ofApp::infection(int i, int r, int g, int b)
-{
-    ofNoFill();
-    ofBeginShape();
-    for (int j = 0; j < i/2; j++) {
-        
-        ofSetLineWidth(i * 0.1);
-        ofSetColor(r, g, b);
-        //ofDrawLine(ofRandom(1000), ofRandom(1000), ofRandom(1000) + 300, ofRandom(1000) + 300);
-        ofVertex(ofRandom(1000), ofRandom(1000));
-        
-    }
-    ofEndShape();
-    ofFill();
-
-}
-
 void ofApp::movePet()
 {
-
 
     if (red.i) {
         red.initX += ofRandom(1, 8);
         red.initY += ofRandom(-1, 8);
-        red.sad.draw(red.initX, red.initY);
+        red.sad.draw(red.initX - 150, red.initY - 300);
         if (ofRandom(100) > 96) {
             red.initX = 100;
             red.initY = 200;
         }
     }
     else if (red.infection > 5 && red.infection < 11) {
-        red.happy.draw(red.initX, red.initY);
+        red.neutral.draw(red.initX - 120, red.initY - 100);
+        red.i = false;
     }
     else {
-        red.neutral.draw(red.initX, red.initY);
+        red.happy.draw(red.initX - 120, red.initY - 120);
+        red.i = false;
     }
 
     if (green.i) {
         green.initX += ofRandom(-8, +1);
         green.initY += ofRandom(-1, +8);
-        green.sad.draw(green.initX, green.initY);
+        green.sad.draw(green.initX - 160, green.initY - 130);
         if (ofRandom(100) > 96) {
             green.initX = 800;
             green.initY = 150;
         }
     }
     else if (green.infection > 5 && green.infection < 11) {
-        green.happy.draw(green.initX, green.initY);
+        green.neutral.draw(green.initX - 200, green.initY - 100);
+        green.i = false;
     }
     else {
-        green.neutral.draw(green.initX, green.initY);
+        green.happy.draw(green.initX - 70, green.initY - 150);
+        green.i = false;
     }
 
     if (blue.i) {
         blue.initX += ofRandom(-8, 8);
         blue.initY += ofRandom(-8, +1);
-        blue.sad.draw(blue.initX, blue.initY);
+        blue.sad.draw(blue.initX - 130, blue.initY - 160);
         if (ofRandom(100) > 96) {
             blue.initX = 500;
             blue.initY = 450;
@@ -226,10 +211,12 @@ void ofApp::movePet()
 
     }
     else if (blue.infection > 5 && blue.infection < 11) {
-        blue.happy.draw(blue.initX, blue.initY);
+        blue.neutral.draw(blue.initX - 140, blue.initY);
+        blue.i = false;
     }
     else {
-        blue.neutral.draw(blue.initX, blue.initY);
+        blue.happy.draw(blue.initX - 120, blue.initY - 200);
+        blue.i = false;
     }
 
 }
@@ -280,6 +267,6 @@ void particle::update(float input1, float input2) {
 //--------------------------------------------------------------
 
 void particle::draw(int r, int g, int b) {
-    ofSetColor(r, g, b, 120);
+    ofSetColor(r, g, b);
     ofDrawEllipse(position, size, size + ofRandom(10));
 }

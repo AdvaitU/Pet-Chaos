@@ -3,13 +3,16 @@ using namespace std;
 
 Animal::Animal()
 {
-
+	// Empty Constructor
 }
 
 Animal::~Animal()
 {
-	
+	// Empty Destructor
 }
+// SETUP FUNCTIONS -------------------------------------------------------------------------------------------------------------------------------------------------------
+// 
+// Sets initial values of hunger, chaos, infection, and x and y co-ordinates for position. Used almost as a constructor in code ------------------------------------------
 
 void Animal::set(float i1, float i2, float i3, int x, int y)
 {
@@ -22,6 +25,8 @@ void Animal::set(float i1, float i2, float i3, int x, int y)
 
 }
 
+// Loads all images for happy, neutral (spooked) and sad (distressed) cat ------------------------------------------------------------------------------------------------
+
 void Animal::loadImage(string h, string n, string s)
 {
 
@@ -29,13 +34,22 @@ void Animal::loadImage(string h, string n, string s)
 	neutral.load(n);
 	sad.load(s);
 
+	//happy.setImageType(OF_IMAGE_COLOR_ALPHA);    // Experiment with JPG with white background as COLOUR_ALPHA
+	//neutral.setImageType(OF_IMAGE_COLOR_ALPHA);
+	//sad.setImageType(OF_IMAGE_COLOR_ALPHA);
+
 }
+
+// RUNNING LOOP FUNCTIONS ------------------------------------------------------------------------------------------------------------------------------------------------
+// 
+// The following functions run when relevant button is pressed and decrease hunger, chaos, and infection levels of the object --------------------------------------------
 
 void Animal::offerBlood()
 {
 
 	hunger -= ofRandom(0.5, 1.5);
 	chaos -= ofRandom(0.1, 0.5);
+	clipValues();
 
 }
 
@@ -43,15 +57,20 @@ void Animal::usePotion()
 {
 
 	chaos -= ofRandom(3.0, 7.0);
+	clipValues();
 
 }
 
 void Animal::sacrificeAnimal()
 {
+
 	infection -= ofRandom(0.5, 1.5);
 	chaos -= ofRandom(0.1, 0.5);
+	clipValues();
 
 }
+
+// Function to periodically increase calues when the programme 'ticks' ---------------------------------------------------------------------------------------------------
 
 void Animal::tickAnimal()
 {
@@ -62,6 +81,8 @@ void Animal::tickAnimal()
 
 	clipValues();  // Clip values between relevant range
 }
+
+// Function sets booleans to true or false based on range that h, c, and i values are found in ---------------------------------------------------------------------------
 
 void Animal::statusAnimal()
 {
@@ -89,6 +110,8 @@ void Animal::statusAnimal()
 	}
 	else i = false;
 }
+
+// Clip values between indicated ranges, run at the end of tickAnimal() ---------------------------------------------------------------------------------------------------
 
 void Animal::clipValues()
 {
