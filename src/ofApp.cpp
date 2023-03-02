@@ -67,7 +67,12 @@ void ofApp::draw(){
     green.statusAnimal();
     blue.statusAnimal();
 
+    ofSetColor(255, 255, 255, 255);   // Set colour fill to white, full alpha
     movePet();                 // Check for movement and the right image
+
+    if (startGame) {
+        bg.draw(0, 0, 1024, 768);
+    }
 
 }
 
@@ -106,6 +111,11 @@ void ofApp::keyPressed(int key){
         break;
     case 'p':
         startGame = false;
+        red.set(0, 0, 0, 100, 200);       // Setting up initial values of all Animal class objects    
+        green.set(0, 0, 0, 800, 150);
+        blue.set(0, 0, 0, 500, 450);
+        startTime = ofGetElapsedTimeMillis();   // Saving time at the start of the programme
+        ofClear(0, 0, 0);
         break;
     case 'l':
         ofToggleFullscreen();
@@ -267,6 +277,6 @@ void particle::update(float input1, float input2) {
 //--------------------------------------------------------------
 
 void particle::draw(int r, int g, int b) {
-    ofSetColor(r, g, b);
+    ofSetColor(r, g, b, 150);
     ofDrawEllipse(position, size, size + ofRandom(10));
 }
