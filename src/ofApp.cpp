@@ -13,7 +13,8 @@ void ofApp::setup(){
     green.loadImage("c2h-01.png", "c2n-01.png", "c2s-01.png");
     blue.loadImage("c3h-01.png", "c3n-01.png", "c3s-01.png");
 
-    bg.load("bg2-01.png");         // Loading background image
+    ss.load("splash_screen-01.png");         // Loading background image
+    bg.load("bg2-01.png");
 
     startTime = ofGetElapsedTimeMillis();   // Saving time at the start of the programme
 }
@@ -34,7 +35,8 @@ void ofApp::update(){
 
 void ofApp::draw(){
 
-    ofBackgroundGradient((0,0,0),(10,10,10),OF_GRADIENT_LINEAR);   // Background gradient - Replace with Image
+    //ofBackground(0);   // Background gradient - Replace with Image
+    bg.draw(0, 0, 1024, 768);
 
     //cout << red.hunger << " " << green.hunger << " " << blue.hunger << endl;     // Debugging
     //cout << red.chaos << " " << green.chaos << " " << blue.chaos << endl;
@@ -58,9 +60,9 @@ void ofApp::draw(){
     }
 
     for (int i = 0; i < redParticles.size(); i++) {     // Run draw() function from Particle class for all instances
-        redParticles[i].draw(255, 0, 0);
-        greenParticles[i].draw(0, 255, 0);
-        blueParticles[i].draw(0, 0, 255);
+        redParticles[i].draw(139, 69, 19);
+        greenParticles[i].draw(255, 140, 0);
+        blueParticles[i].draw(255, 215, 0);
     }
 
     red.statusAnimal();        // Update status booleans
@@ -71,7 +73,7 @@ void ofApp::draw(){
     movePet();                 // Check for movement and the right image
 
     if (startGame) {
-        bg.draw(0, 0, 1024, 768);
+        ss.draw(0, 0, 1024, 768);
     }
 
 }
