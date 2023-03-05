@@ -1,4 +1,5 @@
-# Super Diarrhoea Party
+# Super Diarrhoea Party!!
+Advait Ukidve - Advanced Frameworks Final Project - UAL Creative Computing Institute - February 2023
 
 ## Notes
 - Video Demonstration of the Project: 
@@ -38,4 +39,5 @@ For this project, I explored the following ideas and used the following referenc
 
 - **Perlin Noise** - The positioning and particle system uses a combination of ofRandom and ofNoise functions to make drastic and smooth random motions both ways. [Dan Shiffman](https://shiffman.net/)'s [online tutorial](https://www.youtube.com/watch?v=Qf4dIN99e2w&list=PLRqwX-V7Uu6bgPNQAdxQZpJuJCjeOr7VD) for understanding and using Perlin Noise for Processing helped me out a lot in this respect!
 - **Particle Systems** - The diarrhoea is question is created using particle systems. I used [Dan Buzzo](https://buzzo.com/)'s original Particle system class, modified strategically to form the game. You can find his original YouTube video series describing the class and its implementation [here](https://www.youtube.com/watch?v=XghI0B4EhQI) and the GitHub repository to the source code [here](https://github.com/danbz/art-and-code). 
-- 
+- Timers and Ticking - This [forum post](https://forum.openframeworks.cc/t/run-after-a-certain-time/27116) helped me create the trigger. It took a while and I failed a lot before I found this hehehehe.
+- Game Art - I created art for the game (the cats, splash screens, items, etc.) as illustrations using Procreate by myself. For the background image, I found the perfect one by user u/_onkardesai_ on Reddit on this [original post](https://www.reddit.com/r/Maya/comments/sy5q16/the_attic_my_new_cg_lighting_work_i_was_looking/). All credits to the background art to Onkar Desai.  
