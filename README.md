@@ -2,7 +2,7 @@
 Advait Ukidve - Advanced Frameworks Final Project - UAL Creative Computing Institute - February 2023
 
 ## Notes
-- Video Demonstration of the Project: 
+- Video Demonstration of the Project: [Panopto](https://ual.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=8295c239-0aeb-4402-942e-afc700c4ed9b) or [YouTube](https://youtu.be/56pgCNIZ7PY)
 - Gallery of Screengrabs from the project [here](./Gallery/)
 
 ## Project Description
